@@ -51,6 +51,7 @@
         let counter = 0;
         let initialX;
         let counting = false;
+        let initialSet = false; // 初期位置が設定されたかどうか
 
         function reset() {
             startButton.style.display = "inline-block";
@@ -58,16 +59,13 @@
             counterDisplay.textContent = "秒数: 0";
             counter = 0;
             counting = false;
+            initialSet = false; // 初期位置リセット
         }
 
         startButton.addEventListener("click", () => {
-            // STARTボタンを非表示にし、マウスカーソルを中央に移動
+            // STARTボタンを非表示にし、〇を表示準備
             startButton.style.display = "none";
-            circle.style.display = "none";
             counterDisplay.textContent = "秒数: 0";
-
-            // 画面中央にマウスを移動（理想的にはOSが許可した場合のみ実行）
-            window.scrollTo(window.innerWidth / 2, window.innerHeight / 2);
 
             // ランダムなタイミングで〇を表示
             const randomTime = Math.floor(Math.random() * 7000) + 3000; // 3秒～10秒のランダムな時間
@@ -77,9 +75,6 @@
                 circle.style.display = "block";
                 circle.style.left = `${window.innerWidth / 2 - 50}px`;
                 circle.style.top = `${window.innerHeight / 2 - 50}px`;
-
-                // 初期X位置を現在のマウスX位置に設定
-                initialX = event.screenX;
 
                 // カウントをスタート
                 counting = true;
@@ -94,12 +89,19 @@
         // マウスが横方向に600px移動したか確認
         document.addEventListener("mousemove", (event) => {
             if (counting) {
+                if (!initialSet) {
+                    // 最初の移動時に初期位置を設定
+                    initialX = event.screenX;
+                    initialSet = true; // 初期位置設定済み
+                }
+
                 const dx = Math.abs(event.screenX - initialX);
 
                 // X軸で600px以上移動したらカウント停止
-                if (dx >= 400) {
+                if (dx >= 600) {
                     clearInterval(timer);
                     counting = false;
+                    initialSet = false; // 初期位置をリセット
                     circle.style.display = "none";
                     startButton.style.display = "inline-block";
                 }
