@@ -165,12 +165,16 @@
             console.log(`Time value: ${time}`);
             if (time <= 2) {
                 counterDisplay.style.color = "yellow";
-                messageDisplay.textContent = "PERFECT";
+                messageDisplay.textContent = "GOD";
                 messageDisplay.style.color = "yellow";
             } else if (time <= 2.4) {
                 counterDisplay.style.color = "purple";
-                messageDisplay.textContent = "GREAT";
+                messageDisplay.textContent = "PERFECT";
                 messageDisplay.style.color = "purple";
+            } else if (time <= 2.7) {
+                counterDisplay.style.color = "cyan";
+                messageDisplay.textContent = "GOOD";
+                messageDisplay.style.color = "cyan";
             } else if (time <= 3) {
                 counterDisplay.style.color = "cyan";
                 messageDisplay.textContent = "GOOD";
