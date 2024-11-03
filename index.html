@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ランダムカウントチャレンジ2</title>
+    <title>ランダムカウントチャレンジ</title>
     <style>
         body {
             display: flex;
@@ -84,10 +84,16 @@
             const randomTime = Math.floor(Math.random() * 7000) + 3000; // 3秒～10秒のランダムな時間
 
             setTimeout(() => {
-                // 〇を中央に表示
+                // ランダムな位置を計算
+                const maxX = window.innerWidth - 100; // 〇の幅を考慮
+                const maxY = window.innerHeight - 100; // 〇の高さを考慮
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+
+                // 〇をランダムな位置に表示
                 circle.style.display = "block";
-                circle.style.left = `${window.innerWidth / 2 - 50}px`;
-                circle.style.top = `${window.innerHeight / 2 - 50}px`;
+                circle.style.left = `${randomX}px`;
+                circle.style.top = `${randomY}px`;
 
                 // カウントをスタート
                 counting = true;
