@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ランダムカウントチャレンジ1</title>
+    <title>ランダムカウントチャレンジ2</title>
     <style>
         body {
             display: flex;
@@ -35,17 +35,26 @@
             right: 20px;
             font-size: 1.5rem;
         }
+        #message {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: transparent;
+        }
     </style>
 </head>
 <body>
     <div id="start">START</div>
     <div id="circle"></div>
     <div id="counter">秒数: 0</div>
+    <div id="message"></div>
 
     <script>
         const startButton = document.getElementById("start");
         const circle = document.getElementById("circle");
         const counterDisplay = document.getElementById("counter");
+        const messageDisplay = document.getElementById("message");
 
         let timer;
         let counter = 0;
@@ -56,6 +65,9 @@
             startButton.style.display = "inline-block";
             circle.style.display = "none";
             counterDisplay.textContent = "秒数: 0";
+            counterDisplay.style.color = "black"; // 色をリセット
+            messageDisplay.textContent = ""; // メッセージをクリア
+            messageDisplay.style.color = "transparent";
             counter = 0;
             counting = false;
             initialX = null;
@@ -65,6 +77,8 @@
             // STARTボタンを非表示にし、カウントの準備
             startButton.style.display = "none";
             counterDisplay.textContent = "秒数: 0";
+            messageDisplay.textContent = ""; // メッセージをクリア
+            messageDisplay.style.color = "transparent";
 
             // ランダムなタイミングで〇を表示
             const randomTime = Math.floor(Math.random() * 7000) + 3000; // 3秒～10秒のランダムな時間
@@ -102,12 +116,39 @@
                 if (dx >= 600) {
                     clearInterval(timer);
                     counting = false;
-                    initialX = null;
                     circle.style.display = "none";
                     startButton.style.display = "inline-block";
+
+                    // 結果を表示
+                    showResult(counter / 10);
                 }
             }
         });
+
+        // 結果を表示する関数
+        function showResult(time) {
+            if (time <= 0.2) {
+                counterDisplay.style.color = "yellow";
+                messageDisplay.textContent = "PERFECT";
+                messageDisplay.style.color = "yellow";
+            } else if (time <= 0.24) {
+                counterDisplay.style.color = "purple";
+                messageDisplay.textContent = "GREAT";
+                messageDisplay.style.color = "purple";
+            } else if (time <= 0.3) {
+                counterDisplay.style.color = "cyan";
+                messageDisplay.textContent = "GOOD";
+                messageDisplay.style.color = "cyan";
+            } else if (time <= 0.4) {
+                counterDisplay.style.color = "blue";
+                messageDisplay.textContent = "BAD";
+                messageDisplay.style.color = "blue";
+            } else if (time <= 0.5) {
+                counterDisplay.style.color = "red";
+                messageDisplay.textContent = "MISS";
+                messageDisplay.style.color = "red";
+            }
+        }
     </script>
 </body>
 </html>
