@@ -73,14 +73,17 @@
             const randomTime = Math.floor(Math.random() * 7000) + 3000; // 3秒～10秒のランダムな時間
 
             setTimeout(() => {
+                // 〇を中央に表示
                 circle.style.display = "block";
                 circle.style.left = `${window.innerWidth / 2 - 50}px`;
                 circle.style.top = `${window.innerHeight / 2 - 50}px`;
 
+                // 初期位置を現在のマウス位置に設定
+                initialX = event.screenX;
+                initialY = event.screenY;
+
                 // カウントをスタート
                 counting = true;
-                initialX = window.screenX;
-                initialY = window.screenY;
                 timer = setInterval(() => {
                     counter++;
                     counterDisplay.textContent = `秒数: ${counter / 10}`;
