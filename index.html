@@ -66,7 +66,7 @@
     </div>
     <div id="start">START</div>
     <div id="circle"></div>
-    <div id="counter">秒数: 0</div>
+    <div id="counter">秒数: 0.00</div>
     <div id="message"></div>
 
     <script>
@@ -85,7 +85,7 @@
         function reset() {
             startButton.style.display = "inline-block";
             circle.style.display = "none";
-            counterDisplay.textContent = "秒数: 0";
+            counterDisplay.textContent = "秒数: 0.00";
             counterDisplay.style.color = "white"; // 色をリセット
             messageDisplay.textContent = ""; // メッセージをクリア
             messageDisplay.style.color = "transparent";
@@ -97,7 +97,7 @@
         startButton.addEventListener("click", () => {
             // STARTボタンを非表示にし、カウントの準備
             startButton.style.display = "none";
-            counterDisplay.textContent = "秒数: 0";
+            counterDisplay.textContent = "秒数: 0.00";
             messageDisplay.textContent = ""; // メッセージをクリア
             messageDisplay.style.color = "transparent";
 
@@ -124,7 +124,7 @@
 
                 timer = setInterval(() => {
                     counter++;
-                    counterDisplay.textContent = `秒数: ${counter / 10}`;
+                    counterDisplay.textContent = `秒数: ${(counter / 10).toFixed(2)}`; // 小数第2位まで表示
                 }, 100); // 0.1秒ごとにカウントを更新
 
             }, randomTime);
@@ -148,7 +148,7 @@
                 const dx = Math.abs(event.screenX - initialX);
 
                 // X軸で600px以上移動したらカウント停止
-                if (dx >= 600) {
+                if (dx >= 800) {
                     clearInterval(timer);
                     counting = false;
                     circle.style.display = "none";
