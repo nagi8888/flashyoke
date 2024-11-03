@@ -97,7 +97,7 @@
                 const dx = Math.abs(event.screenX - initialX);
 
                 // X軸で600px以上移動したらカウント停止
-                if (dx >= 600) {
+                if (dx >= 400) {
                     clearInterval(timer);
                     counting = false;
                     circle.style.display = "none";
