@@ -49,9 +49,8 @@
 
         let timer;
         let counter = 0;
-        let initialX;
+        let initialX = null;
         let counting = false;
-        let initialSet = false; // 初期位置が設定されたかどうか
 
         function reset() {
             startButton.style.display = "inline-block";
@@ -59,11 +58,11 @@
             counterDisplay.textContent = "秒数: 0";
             counter = 0;
             counting = false;
-            initialSet = false; // 初期位置リセット
+            initialX = null;
         }
 
         startButton.addEventListener("click", () => {
-            // STARTボタンを非表示にし、〇を表示準備
+            // STARTボタンを非表示にし、カウントの準備
             startButton.style.display = "none";
             counterDisplay.textContent = "秒数: 0";
 
@@ -78,6 +77,9 @@
 
                 // カウントをスタート
                 counting = true;
+                initialX = null; // 初期位置をリセット
+                counter = 0;
+
                 timer = setInterval(() => {
                     counter++;
                     counterDisplay.textContent = `秒数: ${counter / 10}`;
@@ -89,19 +91,18 @@
         // マウスが横方向に600px移動したか確認
         document.addEventListener("mousemove", (event) => {
             if (counting) {
-                if (!initialSet) {
-                    // 最初の移動時に初期位置を設定
+                if (initialX === null) {
+                    // 初期X位置を最初のマウス移動時に設定
                     initialX = event.screenX;
-                    initialSet = true; // 初期位置設定済み
                 }
 
                 const dx = Math.abs(event.screenX - initialX);
 
                 // X軸で600px以上移動したらカウント停止
-                if (dx >= 200) {
+                if (dx >= 600) {
                     clearInterval(timer);
                     counting = false;
-                    initialSet = false; // 初期位置をリセット
+                    initialX = null;
                     circle.style.display = "none";
                     startButton.style.display = "inline-block";
                 }
