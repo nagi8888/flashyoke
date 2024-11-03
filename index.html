@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムカウントチャレンジ</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #start, #circle {
+            position: absolute;
+            font-size: 2rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        #start {
+            display: inline-block;
+        }
+        #circle {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            display: none;
+        }
+        #counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="start">START</div>
+    <div id="circle"></div>
+    <div id="counter">秒数: 0</div>
+
+    <script>
+        const startButton = document.getElementById("start");
+        const circle = document.getElementById("circle");
+        const counterDisplay = document.getElementById("counter");
+
+        let timer;
+        let counter = 0;
+        let initialX, initialY;
+        let counting = false;
+
+        function reset() {
+            startButton.style.display = "inline-block";
+            circle.style.display = "none";
+            counterDisplay.textContent = "秒数: 0";
+            counter = 0;
+            counting = false;
+        }
+
+        startButton.addEventListener("click", () => {
+            // STARTボタンを非表示にし、マウスカーソルを中央に移動
+            startButton.style.display = "none";
+            circle.style.display = "none";
+            counterDisplay.textContent = "秒数: 0";
+
+            // 画面中央にマウスを移動（理想的にはOSが許可した場合のみ実行）
+            window.scrollTo(window.innerWidth / 2, window.innerHeight / 2);
+
+            // ランダムなタイミングで〇を表示
+            const randomTime = Math.floor(Math.random() * 7000) + 3000; // 3秒～10秒のランダムな時間
+
+            setTimeout(() => {
+                circle.style.display = "block";
+                circle.style.left = `${window.innerWidth / 2 - 50}px`;
+                circle.style.top = `${window.innerHeight / 2 - 50}px`;
+
+                // カウントをスタート
+                counting = true;
+                initialX = window.screenX;
+                initialY = window.screenY;
+                timer = setInterval(() => {
+                    counter++;
+                    counterDisplay.textContent = `秒数: ${counter / 10}`;
+                }, 100); // 0.1秒ごとにカウントを更新
+
+            }, randomTime);
+        });
+
+        // マウスが600px移動したか確認
+        document.addEventListener("mousemove", (event) => {
+            if (counting) {
+                const dx = event.screenX - initialX;
+                const dy = event.screenY - initialY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance >= 600) {
+                    clearInterval(timer);
+                    counting = false;
+                    circle.style.display = "none";
+                    startButton.style.display = "inline-block";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
