@@ -125,7 +125,7 @@
                 timer = setInterval(() => {
                     counter++;
                     counterDisplay.textContent = `秒数: ${(counter / 10).toFixed(2)}`; // 小数第2位まで表示
-                }, 100); // 0.1秒ごとにカウントを更新
+                }, 10); // 0.1秒ごとにカウントを更新
 
             }, randomTime);
         });
