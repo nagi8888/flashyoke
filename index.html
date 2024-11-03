@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フラッシュ避け練習くんv1.0</title>
+    <title>フラッシュ避け練習くんv1.0a</title>
     <style>
         body {
             display: flex;
@@ -162,28 +162,28 @@
 
         // 結果を表示する関数
         function showResult(time) {
-            if ((double) time <= 0.2) {
+            if (time <= 0.2) {
                 counterDisplay.style.color = "yellow";
                 messageDisplay.textContent = "PERFECT";
                 messageDisplay.style.color = "yellow";
-            } else if ((double) time <= 0.24) {
+            } else if (time > 0.2 && time <= 0.24) {
                 counterDisplay.style.color = "purple";
                 messageDisplay.textContent = "GREAT";
                 messageDisplay.style.color = "purple";
-            } else if ((double) time <= 0.3) {
+            } else if (time > 0.24 && time <= 0.3) {
                 counterDisplay.style.color = "cyan";
                 messageDisplay.textContent = "GOOD";
                 messageDisplay.style.color = "cyan";
-            } else if ((double) time <= 0.4) {
+            } else if (time > 0.3 && time <= 0.4) {
                 counterDisplay.style.color = "blue";
                 messageDisplay.textContent = "BAD";
                 messageDisplay.style.color = "blue";
             } else {
-                // それ以外の場合のデフォルト「MISS」
                 counterDisplay.style.color = "red";
                 messageDisplay.textContent = "MISS";
                 messageDisplay.style.color = "red";
             }
+
         }
     </script>
 </body>
