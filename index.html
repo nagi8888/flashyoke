@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フラッシュ避け練習くんv1.0a</title>
+    <title>フラッシュ避け練習くんv1.0</title>
     <style>
         body {
             display: flex;
@@ -123,8 +123,8 @@
                 counter = 0;
 
                 timer = setInterval(() => {
-                    counter++;
-                    counterDisplay.textContent = `秒数: ${(counter / 10).toFixed(2)}`; // 小数第2位まで表示
+                    counter += 1;
+                    counterDisplay.textContent = `秒数: ${(counter / 100).toFixed(2)}`; // 小数第2位まで表示
                 }, 10); // 0.1秒ごとにカウントを更新
 
             }, randomTime);
