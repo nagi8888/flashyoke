@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フラッシュ避け練習くんv1.0a</title>
+    <title>フラッシュ避け練習くんv1.0b</title>
     <style>
         body {
             display: flex;
@@ -162,6 +162,7 @@
 
         // 結果を表示する関数
         function showResult(time) {
+            console.log(`Time value: ${time}`);
             if (time <= 0.2) {
                 counterDisplay.style.color = "yellow";
                 messageDisplay.textContent = "PERFECT";
