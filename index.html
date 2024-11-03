@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フラッシュ避け練習くん</title>
+    <title>フラッシュ避け練習くんv1.0</title>
     <style>
         body {
             display: flex;
@@ -45,9 +45,25 @@
             font-size: 1.2rem;
             color: transparent;
         }
+        #color-options {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .color-option {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
+    <div id="color-options">
+        <span class="color-option" data-color="yellow" style="color: yellow;">黄色</span>
+        <span class="color-option" data-color="red" style="color: red;">赤色</span>
+        <span class="color-option" data-color="purple" style="color: purple;">紫色</span>
+    </div>
     <div id="start">START</div>
     <div id="circle"></div>
     <div id="counter">秒数: 0</div>
@@ -58,11 +74,13 @@
         const circle = document.getElementById("circle");
         const counterDisplay = document.getElementById("counter");
         const messageDisplay = document.getElementById("message");
+        const colorOptions = document.querySelectorAll(".color-option");
 
         let timer;
         let counter = 0;
         let initialX = null;
         let counting = false;
+        let circleColor = "red"; // 初期の〇の色
 
         function reset() {
             startButton.style.display = "inline-block";
@@ -93,10 +111,11 @@
                 const randomX = Math.floor(Math.random() * maxX);
                 const randomY = Math.floor(Math.random() * maxY);
 
-                // 〇をランダムな位置に表示
+                // 〇をランダムな位置に表示し、色を設定
                 circle.style.display = "block";
                 circle.style.left = `${randomX}px`;
                 circle.style.top = `${randomY}px`;
+                circle.style.backgroundColor = circleColor; // 〇の色を反映
 
                 // カウントをスタート
                 counting = true;
@@ -109,6 +128,13 @@
                 }, 100); // 0.1秒ごとにカウントを更新
 
             }, randomTime);
+        });
+
+        // 色オプションのクリックイベント
+        colorOptions.forEach(option => {
+            option.addEventListener("click", (event) => {
+                circleColor = event.target.getAttribute("data-color");
+            });
         });
 
         // マウスが横方向に600px移動したか確認
